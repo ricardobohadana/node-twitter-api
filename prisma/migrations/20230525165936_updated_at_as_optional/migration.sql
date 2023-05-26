@@ -1,0 +1,25 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[Post] ADD [updatedAt] DATETIME2;
+
+-- AlterTable
+ALTER TABLE [dbo].[Reply] ADD [updatedAt] DATETIME2;
+
+-- AlterTable
+ALTER TABLE [dbo].[User] ALTER COLUMN [updatedAt] DATETIME2 NULL;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
